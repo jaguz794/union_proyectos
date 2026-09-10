@@ -14,7 +14,6 @@
       "summary": "Programacion de turnos, sedes, saldos e informes operativos.",
       "url": "http://192.168.10.7:8010/",
       "status_url": "http://192.168.10.7:8010/",
-      "project_path": "C:/Users/jaguz/Documents/proyectos/horarios",
       "runtime": "Django",
       "port_label": "192.168.10.7:8010",
       "accent": "#0f766e"
@@ -25,7 +24,6 @@
       "summary": "Consulta y conciliacion de XML frente al ERP.",
       "url": "http://192.168.10.9:5173/",
       "status_url": "http://192.168.10.9:5173/",
-      "project_path": "C:/Users/jaguz/Documents/proyectos/xml_conciliador",
       "runtime": "FastAPI + React",
       "port_label": "192.168.10.9:5173",
       "accent": "#2563eb"
@@ -36,7 +34,6 @@
       "summary": "Cierres diarios, descuadres, tarjetas, bonos y perfiles por sede.",
       "url": "http://192.168.10.7:8017/",
       "status_url": "http://192.168.10.7:8017/",
-      "project_path": "C:/Users/jaguz/Documents/proyectos/cuadre_de_cajas",
       "runtime": "Django",
       "port_label": "192.168.10.7:8017",
       "accent": "#be123c"
@@ -47,7 +44,6 @@
       "summary": "OCR, comparacion de ofertas y reportes Excel de separatas.",
       "url": "/en-construccion/revisor-separata",
       "state": "construction",
-      "project_path": "C:/Users/jaguz/Documents/proyectos/revisor_separata",
       "runtime": "Pipeline local",
       "port_label": "Temporal",
       "accent": "#7c3aed"
