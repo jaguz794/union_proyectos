@@ -14,6 +14,7 @@
       "summary": "Programacion de turnos, sedes, saldos e informes operativos.",
       "url": "http://192.168.10.7:8010/",
       "status_url": "http://192.168.10.7:8010/",
+      "preview_image": "assets/previews/horarios.png",
       "runtime": "Django",
       "port_label": "192.168.10.7:8010",
       "accent": "#0f766e"
@@ -24,6 +25,7 @@
       "summary": "Consulta y conciliacion de XML frente al ERP.",
       "url": "http://192.168.10.9:5173/",
       "status_url": "http://192.168.10.9:5173/",
+      "preview_image": "assets/previews/xml-conciliador.png",
       "runtime": "FastAPI + React",
       "port_label": "192.168.10.9:5173",
       "accent": "#2563eb"
@@ -34,6 +36,7 @@
       "summary": "Cierres diarios, descuadres, tarjetas, bonos y perfiles por sede.",
       "url": "http://192.168.10.7:8017/",
       "status_url": "http://192.168.10.7:8017/",
+      "preview_image": "assets/previews/cuadre-cajas.png",
       "runtime": "Django",
       "port_label": "192.168.10.7:8017",
       "accent": "#be123c"
@@ -43,6 +46,7 @@
       "name": "REVISOR DE OFERTAS",
       "summary": "OCR, comparacion de ofertas y reportes Excel de separatas.",
       "url": "/en-construccion/revisor-separata",
+      "preview_image": "assets/previews/revisor-separata.png",
       "state": "construction",
       "runtime": "Pipeline local",
       "port_label": "Temporal",
@@ -54,6 +58,7 @@
       "summary": "Acceso al conjunto de aplicativos React.",
       "url": "http://192.168.10.7:3000/",
       "status_url": "http://192.168.10.7:3000/",
+      "preview_image": "assets/previews/aplicativos-react.png",
       "runtime": "React",
       "port_label": "192.168.10.7:3000",
       "accent": "#0891b2"

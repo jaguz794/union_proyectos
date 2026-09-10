@@ -88,6 +88,7 @@ https://github.com/jaguz794/union_proyectos.git
 
 Los nombres, rutas y enlaces viven en `portal_config.json`.
 Si una aplicacion cambia de carpeta o puerto, actualiza ese archivo y reinicia el portal.
+Las miniaturas de previsualizacion viven en `assets/previews/` y se asignan a cada aplicacion con `preview_image`.
 
 ## Notas
 

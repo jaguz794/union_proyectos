@@ -15,7 +15,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 
 ROOT = Path(__file__).resolve().parent
@@ -53,6 +53,35 @@ def configured_path(value: object) -> Path:
     if path.is_absolute():
         return path
     return ROOT / path
+
+
+def image_content_type(path: Path) -> str:
+    suffix = path.suffix.lower()
+    if suffix in {".jpg", ".jpeg"}:
+        return "image/jpeg"
+    if suffix == ".webp":
+        return "image/webp"
+    return "image/png"
+
+
+def preview_static_path(request_path: str) -> Path | None:
+    filename = Path(unquote(request_path.rsplit("/", 1)[-1])).name
+    if not filename:
+        return None
+    candidate = ROOT / "assets" / "previews" / filename
+    if candidate.is_file():
+        return candidate
+    return None
+
+
+def preview_image_src(app: dict[str, Any]) -> str:
+    preview_image = str(app.get("preview_image", "")).strip()
+    if not preview_image:
+        return ""
+    preview_path = configured_path(preview_image)
+    if not preview_path.is_file():
+        return ""
+    return f"/static/previews/{escape(preview_path.name)}"
 
 
 def check_status(app: dict[str, Any]) -> dict[str, Any]:
@@ -219,6 +248,7 @@ def render_layout(title: str, body: str, extra_head: str = "") -> bytes:
       padding: 18px;
       position: relative;
       overflow: hidden;
+      isolation: isolate;
       backdrop-filter: blur(9px);
       transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
     }}
@@ -285,6 +315,69 @@ def render_layout(title: str, body: str, extra_head: str = "") -> bytes:
       color: var(--muted);
       line-height: 1.48;
       font-size: 0.96rem;
+    }}
+    .preview-popover {{
+      pointer-events: none;
+      position: absolute;
+      inset: 16px;
+      height: auto;
+      z-index: 3;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--accent), #ffffff 72%);
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 18px 38px rgba(15, 23, 42, 0.18);
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+      transition: opacity 160ms ease, transform 160ms ease;
+    }}
+    .app-card:focus .preview-popover,
+    .app-card:focus-visible .preview-popover,
+    .app-card:hover .preview-popover {{
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }}
+    .preview-popover img,
+    .preview-popover iframe {{
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      object-fit: cover;
+      background: #f8fafc;
+    }}
+    .preview-popover iframe {{
+      width: 625%;
+      height: 625%;
+      transform: scale(0.16);
+      transform-origin: top left;
+    }}
+    .preview-caption {{
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0), rgba(15, 23, 42, 0.82));
+      color: #ffffff;
+      font-size: 0.74rem;
+      line-height: 1.1;
+    }}
+    .preview-caption strong {{
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.78rem;
+    }}
+    .preview-caption span {{
+      flex: 0 0 auto;
+      opacity: 0.86;
+      font-weight: 700;
     }}
     .meta {{
       display: flex;
@@ -394,6 +487,16 @@ def render_layout(title: str, body: str, extra_head: str = "") -> bytes:
       .app-card {{ min-height: 212px; }}
       .brand img {{ width: 48px; height: 48px; }}
     }}
+    @media (hover: none) {{
+      .preview-popover {{
+        position: relative;
+        inset: auto;
+        height: 118px;
+        margin-top: 14px;
+        opacity: 1;
+        transform: none;
+      }}
+    }}
   </style>
   {extra_head}
 </head>
@@ -431,6 +534,17 @@ def render_home() -> bytes:
     for app in apps:
         accent = escape(app.get("accent", "#2563eb"))
         href = f"/abrir/{escape(app.get('id', ''))}"
+        preview_src = preview_image_src(app)
+        preview_target = escape(app.get("preview_url") or app.get("url") or href)
+        if preview_src:
+            preview_media = (
+                f'<img src="{preview_src}" alt="Miniatura de {escape(app.get("name"))}" loading="lazy">'
+            )
+        else:
+            preview_media = (
+                f'<iframe src="{preview_target}" title="Miniatura de {escape(app.get("name"))}" '
+                'tabindex="-1" loading="lazy"></iframe>'
+            )
         cards.append(
             f"""<a class="app-card" href="{href}" style="--accent:{accent}" data-app-id="{escape(app.get("id"))}">
   <div>
@@ -440,6 +554,10 @@ def render_home() -> bytes:
     </div>
     <h2>{escape(app.get("name"))}</h2>
     <p>{escape(app.get("summary"))}</p>
+  </div>
+  <div class="preview-popover" aria-hidden="true">
+    {preview_media}
+    <div class="preview-caption"><span>Vista previa</span><strong>{escape(app.get("name"))}</strong></div>
   </div>
   <div class="meta">
     <span>{escape(app.get("runtime"))} · {escape(app.get("port_label"))}</span>
@@ -729,6 +847,13 @@ class PortalHandler(BaseHTTPRequestHandler):
                 return
             self.send_error(HTTPStatus.NOT_FOUND, "Fondo no encontrado")
             return
+        if path.startswith("/static/previews/"):
+            preview = preview_static_path(path)
+            if preview:
+                self.send_head_only(image_content_type(preview), length=preview.stat().st_size)
+                return
+            self.send_error(HTTPStatus.NOT_FOUND, "Miniatura no encontrada")
+            return
         if path == "/static/logo-popular.png":
             logo = configured_path(load_config().get("portal", {}).get("logo_path", ""))
             if logo.exists():
@@ -785,6 +910,13 @@ class PortalHandler(BaseHTTPRequestHandler):
                 self.send_bytes(background.read_bytes(), "image/png")
                 return
             self.send_error(HTTPStatus.NOT_FOUND, "Fondo no encontrado")
+            return
+        if path.startswith("/static/previews/"):
+            preview = preview_static_path(path)
+            if preview:
+                self.send_bytes(preview.read_bytes(), image_content_type(preview))
+                return
+            self.send_error(HTTPStatus.NOT_FOUND, "Miniatura no encontrada")
             return
         if path.startswith("/abrir/"):
             app_id = path.rsplit("/", 1)[-1]
