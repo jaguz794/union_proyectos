@@ -1,0 +1,66 @@
+{
+  "portal": {
+    "title": "Portal de Aplicaciones",
+    "subtitle": "Supermercados Popular",
+    "host": "127.0.0.1",
+    "port": 9000,
+    "logo_path": "assets/logo-popular.png",
+    "background_path": "assets/portal-background.png"
+  },
+  "apps": [
+    {
+      "id": "horarios",
+      "name": "PORTAL DE HORARIOS",
+      "summary": "Programacion de turnos, sedes, saldos e informes operativos.",
+      "url": "http://192.168.10.7:8010/",
+      "status_url": "http://192.168.10.7:8010/",
+      "project_path": "C:/Users/jaguz/Documents/proyectos/horarios",
+      "runtime": "Django",
+      "port_label": "192.168.10.7:8010",
+      "accent": "#0f766e"
+    },
+    {
+      "id": "xml-conciliador",
+      "name": "CONCILIADOR DE COSTOS",
+      "summary": "Consulta y conciliacion de XML frente al ERP.",
+      "url": "http://192.168.10.9:5173/",
+      "status_url": "http://192.168.10.9:5173/",
+      "project_path": "C:/Users/jaguz/Documents/proyectos/xml_conciliador",
+      "runtime": "FastAPI + React",
+      "port_label": "192.168.10.9:5173",
+      "accent": "#2563eb"
+    },
+    {
+      "id": "cuadre-cajas",
+      "name": "CONCILIADOR CIERRE DE CAJAS",
+      "summary": "Cierres diarios, descuadres, tarjetas, bonos y perfiles por sede.",
+      "url": "http://192.168.10.7:8017/",
+      "status_url": "http://192.168.10.7:8017/",
+      "project_path": "C:/Users/jaguz/Documents/proyectos/cuadre_de_cajas",
+      "runtime": "Django",
+      "port_label": "192.168.10.7:8017",
+      "accent": "#be123c"
+    },
+    {
+      "id": "revisor-separata",
+      "name": "REVISOR DE OFERTAS",
+      "summary": "OCR, comparacion de ofertas y reportes Excel de separatas.",
+      "url": "/en-construccion/revisor-separata",
+      "state": "construction",
+      "project_path": "C:/Users/jaguz/Documents/proyectos/revisor_separata",
+      "runtime": "Pipeline local",
+      "port_label": "Temporal",
+      "accent": "#7c3aed"
+    },
+    {
+      "id": "aplicativos-react",
+      "name": "PORTAL DE COMPRAS Y RRHH",
+      "summary": "Acceso al conjunto de aplicativos React.",
+      "url": "http://192.168.10.7:3000/",
+      "status_url": "http://192.168.10.7:3000/",
+      "runtime": "React",
+      "port_label": "192.168.10.7:3000",
+      "accent": "#0891b2"
+    }
+  ]
+}
