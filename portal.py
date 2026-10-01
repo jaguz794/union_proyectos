@@ -229,6 +229,29 @@ def render_layout(title: str, body: str, extra_head: str = "") -> bytes:
       box-shadow: 0 8px 22px rgba(21, 31, 45, 0.06);
     }}
     .address strong {{ color: var(--ink); font-weight: 700; }}
+    .topbar-actions {{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 10px;
+    }}
+    .supermarket-link {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border: 1px solid #08783f;
+      border-radius: 8px;
+      color: #fff;
+      background: #08783f;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(21, 31, 45, 0.1);
+      transition: background 140ms ease, transform 140ms ease;
+    }}
+    .supermarket-link:hover {{ background: #066333; transform: translateY(-1px); }}
+    .supermarket-link:focus-visible {{ outline: 3px solid #facc15; outline-offset: 2px; }}
     .grid {{
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -478,6 +501,7 @@ def render_layout(title: str, body: str, extra_head: str = "") -> bytes:
     @media (max-width: 980px) {{
       .grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .topbar {{ align-items: flex-start; flex-direction: column; }}
+      .topbar-actions {{ justify-content: flex-start; }}
       .address {{ white-space: normal; }}
     }}
     @media (max-width: 640px) {{
@@ -510,7 +534,10 @@ def render_layout(title: str, body: str, extra_head: str = "") -> bytes:
           <p>{escape(portal.get("subtitle", ""))}</p>
         </div>
       </a>
-      <div class="address"><span>Direccion</span><strong id="portal-address">http://{escape(portal.get("host", "127.0.0.1"))}:{escape(portal.get("port", "9000"))}</strong></div>
+      <div class="topbar-actions">
+        <a class="supermarket-link" href="https://supermercadopopular.com/" target="_blank" rel="noopener noreferrer">Ir a Supermercados Popular</a>
+        <div class="address"><span>Direccion</span><strong id="portal-address">http://{escape(portal.get("host", "127.0.0.1"))}:{escape(portal.get("port", "9000"))}</strong></div>
+      </div>
     </header>
     {body}
   </main>
