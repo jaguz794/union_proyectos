@@ -73,6 +73,17 @@
       "runtime": "Web",
       "port_label": "supermercadopopular.com",
       "accent": "#16a34a"
+    },
+    {
+      "id": "administracion-proveedores-siesa",
+      "name": "ADMINISTRACION PORTAL PROVEEDORES SIESA ERP",
+      "summary": "Administracion del portal de proveedores Siesa ERP.",
+      "url": "https://arciasociados.adminagp.siesadigital.net/login/",
+      "status_url": "https://arciasociados.adminagp.siesadigital.net/login/",
+      "preview_image": "assets/previews/administracion-proveedores-siesa.png",
+      "runtime": "Siesa ERP",
+      "port_label": "siesadigital.net",
+      "accent": "#ea580c"
     }
   ]
 }

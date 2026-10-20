@@ -8,6 +8,7 @@ Portal inicial para centralizar el acceso local a:
 - REVISOR DE OFERTAS
 - PORTAL DE COMPRAS Y RRHH
 - MODIFICADOR DE OFERTAS WEB
+- ADMINISTRACION PORTAL PROVEEDORES SIESA ERP
 
 ## Arranque rapido
 
@@ -84,6 +85,7 @@ https://github.com/jaguz794/union_proyectos.git
 - CONCILIADOR CIERRE DE CAJAS: `192.168.10.7:8017`
 - PORTAL DE COMPRAS Y RRHH: `192.168.10.7:3000`
 - MODIFICADOR DE OFERTAS WEB: `https://supermercadopopular.com/portal-ofertas`
+- ADMINISTRACION PORTAL PROVEEDORES SIESA ERP: `https://arciasociados.adminagp.siesadigital.net/login/`
 - REVISOR DE OFERTAS: temporal en construccion
 
 ## Configuracion
@@ -95,5 +97,5 @@ Las miniaturas de previsualizacion viven en `assets/previews/` y se asignan a ca
 ## Notas
 
 - El portal no mueve ni modifica los proyectos originales.
-- `PORTAL DE HORARIOS`, `CONCILIADOR DE COSTOS`, `CONCILIADOR CIERRE DE CAJAS`, `PORTAL DE COMPRAS Y RRHH` y `MODIFICADOR DE OFERTAS WEB` redireccionan a las rutas configuradas.
+- `PORTAL DE HORARIOS`, `CONCILIADOR DE COSTOS`, `CONCILIADOR CIERRE DE CAJAS`, `PORTAL DE COMPRAS Y RRHH`, `MODIFICADOR DE OFERTAS WEB` y `ADMINISTRACION PORTAL PROVEEDORES SIESA ERP` redireccionan a las rutas configuradas.
 - `REVISOR DE OFERTAS` muestra una pagina temporal de construccion.
