@@ -84,6 +84,17 @@
       "runtime": "Siesa ERP",
       "port_label": "siesadigital.net",
       "accent": "#ea580c"
+    },
+    {
+      "id": "portal-capacitaciones",
+      "name": "PORTAL DE CAPACITACIONES",
+      "summary": "Acceso a cursos y recursos de capacitacion en Moodle.",
+      "url": "https://capacitaciones.supermercadopopular.com/login/index.php",
+      "status_url": "https://capacitaciones.supermercadopopular.com/login/index.php",
+      "preview_image": "assets/previews/portal-capacitaciones.png",
+      "runtime": "Moodle",
+      "port_label": "capacitaciones.supermercadopopular.com",
+      "accent": "#f97316"
     }
   ]
 }
